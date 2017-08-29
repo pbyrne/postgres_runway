@@ -1,6 +1,11 @@
 defmodule PostgresRunway.Sequences do
   require Logger
 
+  @moduledoc """
+  Query databadse for sequences and provide usage data (current value, max
+  value, and percentage used).
+  """
+
   def fetch do
     PostgresRunway.Connection.start_link()
     fetch_sequences() |> fetch_values
@@ -18,7 +23,7 @@ defmodule PostgresRunway.Sequences do
 
   def values_for_sequence(sequence_name) do
     data = PostgresRunway.Connection.execute("select last_value, max_value from #{sequence_name}")
-    [[last, max]] = data.rows;
+    [[last, max]] = data.rows
     %{name: sequence_name, last: last, max: max, used: (last * 100.0 / max)}
   end
 end

@@ -1,6 +1,10 @@
 defmodule PostgresRunway.CLI do
   require Logger
 
+  @moduledoc """
+  CLI implmenetation. Queries for sequence data and formats for the screen.
+  """
+
   def main() do
     Logger.info "MAIN"
     PostgresRunway.Sequences.fetch
@@ -9,7 +13,8 @@ defmodule PostgresRunway.CLI do
   end
 
   def sort_descending(values) do
-    Enum.sort(values, fn %{used: used1}, %{used: used2} -> used1 <= used2 end)
+    values
+    |> Enum.sort(fn %{used: used1}, %{used: used2} -> used1 <= used2 end)
     |> Enum.reverse
   end
 
@@ -19,7 +24,7 @@ defmodule PostgresRunway.CLI do
   end
 
   defp print_line(record) do
-    %{ name: sequence, used: used } = record
+    %{name: sequence, used: used} = record
     IO.puts "#{sequence}: #{Float.round(used, 2)}%"
   end
 end
