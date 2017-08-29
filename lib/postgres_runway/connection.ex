@@ -11,7 +11,9 @@ defmodule PostgresRunway.Connection do
 
   # Public API
   def start_link do
-    {:ok, connection} = Postgrex.start_link(hostname: "localhost", username: "postgres", database: "dribbble_dev")
+    {:ok, connection} = Postgrex.start_link(
+      hostname: "localhost", username: "postgres", database: "dribbble_dev"
+    )
     GenServer.start_link(__MODULE__, connection, name: __MODULE__)
   end
 

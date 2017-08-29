@@ -5,7 +5,7 @@ defmodule PostgresRunway.CLI do
   CLI implmenetation. Queries for sequence data and formats for the screen.
   """
 
-  def main() do
+  def main do
     Logger.info "MAIN"
     PostgresRunway.Sequences.fetch
     |> sort_descending
